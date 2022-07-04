@@ -33,8 +33,6 @@ defsub bgm_fo
 defsub bgm_stop
 defsub sleep
 
-
-
 effect 10,10,200
 
 ;<<-EFFECT->>
@@ -71,6 +69,7 @@ return
 	getparam $0
 	if $0=="" dwavestop 1
 	if $0!="" dwave 1,"wav_dec\" + $0 + ".wav"
+	mov $10,""
 return
 
 
@@ -81,7 +80,6 @@ return
 
 *pretext_lb
 	lsp 10,":s/26,26,0;#ffffff"+$10,33,495-5-26 ;名前の表示
-	mov $10,""
 return
 
 
@@ -92,7 +90,7 @@ return
 
 *se_wait
 	;旧ONSでSE待機は再現不可なので
-	click
+	wait 2000
 return
 
 
@@ -124,6 +122,8 @@ return
 
 
 *select_start
+	setwindow 60,60,27,6,26,26,0,50,20,0,0,#999999,50,50,749,549;ウィンドウselect用
+	
 	if $21=="NULL" mov $21,""
 	if $22=="NULL" mov $22,""
 	if $23=="NULL" mov $23,""
@@ -145,6 +145,7 @@ return
 		mov $25,"":mov %40,5:goto *selskip
 	
 	*selskip
+	setwindow 33,495,27,3,26,26,0,5,20,0,0,#999999,0,455,799,599;ウィンドウ汎用
 return
 
 
@@ -161,7 +162,7 @@ return
 	if %0==2 lsp 15,"cg\"+$2+".png",   0,0
 	if %0==3 lsp 16,"cg\"+$2+".png", 180,0
 	if %0==3 lsp 17,"cg\"+$2+".png",-180,0
-
+	
 	
 	if $1=="" goto *nobg
 	
@@ -183,7 +184,7 @@ return
 	getparam $0,%0,$1,$2,$3
 	vsp 15,0:vsp 16,0:vsp 17,0
 	if $0=="fi" print 10
-
+	
 	if %0==1 lsp 15,"cg\"+$1+".png",   0,0
 	if %0==2 lsp 16,"cg\"+$1+".png", 180,0:lsp 17,"cg\"+$2+".png",-180,0
 	if %0==3 lsp 15,"cg\"+$1+".png",   0,0:lsp 16,"cg\"+$2+".png", 180,0:lsp 17,"cg\"+$3+".png",-180,0
@@ -291,8 +292,8 @@ print 1
 	btnwait %20
 	if %20==30 csp -1:stop:goto *niji_title_menu_end
 	if %20==31 csp -1:stop:bg "cg\_MLLoadBack.png",10:systemcall load:bg black,10:goto *niji_title_menu
+	if %20==32 csp -1:stop:bg black,10:mpegplay "NijiOp.mpg",1:goto *niji_title_menu
 	if %20==34 csp -1:stop:end
 	
 goto *niji_title_loop
-
 ;----------------------------------------

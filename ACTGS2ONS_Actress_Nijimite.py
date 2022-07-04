@@ -191,10 +191,7 @@ def text_cnv():
 				elif re.match(r'flag_update', line):
 					line = r';' + line#エラー防止の為コメントアウト
 
-				elif re.match(r'def_', line):#コレ結構危うい
-					line = r';' + line#エラー防止の為コメントアウト
-
-				elif re.match(r'bg_effect', line):#コレも結構危うい
+				elif re.match(r'bg_effect', line):#コレ結構危うい
 					line = r';' + line#エラー防止の為コメントアウト
 
 				elif re.match(r'auto_ret_off', line):
@@ -408,9 +405,9 @@ def text_cnv():
 
 				elif shake_line:#振動(絶対原作と違う)
 					if shake_line[1]=='SHAKE_1':
-						line ='quake 2,100\n'
+						line ='quake 4,200\n'
 					elif shake_line[1]=='SHAKE_2':
-						line ='quake 2,200\n'
+						line ='quake 4,400\n'
 					else:
 						print('WARNING:shake to quake convert error!')
 						line = r';' + line#エラー防止の為コメントアウト	
@@ -454,13 +451,9 @@ def text_cnv():
 	txt = txt.replace(r'▲氏▲', cfg_dict['Family'])
 	txt = txt.replace(r'●名●', cfg_dict['Name'])
 
-	if re.search('SCR_01_kyo001', txt):#にじみて専用
+	if re.search('NijiOp', txt):#にじみて専用
 		txt = txt.replace(r'<<-TITLE->>', r'虹を見つけたら教えて。')
 		txt = txt.replace('\n;menu\n', '\ngoto *niji_title_menu\n*niji_title_menu_end\n')
-
-
-	
-
 
 	open(os.path.join(same_hierarchy,'0.txt'), 'w', errors='ignore').write(txt)
 
@@ -496,18 +489,14 @@ def end_check():
 	if (gosub_list):
 		print('WARNING:gosub convert error!')
 
-
-
-
-
 if file_check():
-	music_cnv()
 	cfg_file()
 	text_def()
 	text_cnv()
+	music_cnv()
 	end_check()
 
-print()
-print(define_dict)
-print()
-print(str2var_dict)
+#print()
+#print(define_dict)
+#print()
+#print(str2var_dict)
