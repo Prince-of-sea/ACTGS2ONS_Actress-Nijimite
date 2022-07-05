@@ -122,7 +122,7 @@ return
 
 
 *select_start
-	setwindow 60,60,27,6,26,26,0,50,20,0,0,#999999,50,50,749,549;ウィンドウselect用
+	vsp 10,0:setwindow 60,60,27,6,26,26,0,50,20,0,0,#999999,50,50,749,549;ウィンドウselect用
 	
 	if $21=="NULL" mov $21,""
 	if $22=="NULL" mov $22,""
@@ -160,8 +160,8 @@ return
 	vsp 15,0:vsp 16,0:vsp 17,0
 	
 	if %0==2 lsp 15,"cg\"+$2+".png",   0,0
-	if %0==3 lsp 16,"cg\"+$2+".png", 180,0
-	if %0==3 lsp 17,"cg\"+$2+".png",-180,0
+	if %0==3 lsp 16,"cg\"+$2+".png",-180,0
+	if %0==3 lsp 17,"cg\"+$2+".png", 180,0
 	
 	
 	if $1=="" goto *nobg
@@ -186,8 +186,8 @@ return
 	if $0=="fi" print 10
 	
 	if %0==1 lsp 15,"cg\"+$1+".png",   0,0
-	if %0==2 lsp 16,"cg\"+$1+".png", 180,0:lsp 17,"cg\"+$2+".png",-180,0
-	if %0==3 lsp 15,"cg\"+$1+".png",   0,0:lsp 16,"cg\"+$2+".png", 180,0:lsp 17,"cg\"+$3+".png",-180,0
+	if %0==2 lsp 16,"cg\"+$1+".png",-180,0:lsp 17,"cg\"+$2+".png", 180,0
+	if %0==3 lsp 15,"cg\"+$1+".png",   0,0:lsp 16,"cg\"+$2+".png",-180,0:lsp 17,"cg\"+$3+".png", 180,0
 	
 	print 10
 return

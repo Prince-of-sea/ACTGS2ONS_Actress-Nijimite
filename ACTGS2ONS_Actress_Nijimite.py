@@ -5,10 +5,14 @@ import sys
 import re
 import os
 
+debug = 0
+
 same_hierarchy = (os.path.dirname(sys.argv[0]))#同一階層のパスを変数へ代入
 DEFAULT_TXT = os.path.join(same_hierarchy,'default.txt')
 
-#same_hierarchy = os.path.join(same_hierarchy,'actress_nijimite_EXT')#debug
+if debug:
+	same_hierarchy = os.path.join(same_hierarchy,'actress_nijimite_EXT')#debug
+
 DIR_WAV = os.path.join(same_hierarchy,'WAV')
 DIR_SCR = os.path.join(same_hierarchy,'scr')
 DIR_CG = os.path.join(same_hierarchy,'cg')
@@ -156,7 +160,8 @@ def text_cnv():
 					line = '\\\n'
 
 				elif re.match(r'vo "(.*?)"', line):
-					pass
+					if debug:
+						line = r';' + line
 
 				elif re.match(r'fo', line):
 					pass
@@ -220,6 +225,8 @@ def text_cnv():
 
 				elif msg2_line:
 					line = 'msg2 "' + msg2_line[1].replace(r'【', r'').replace(r'】', r'') + '"\n'
+					if debug:
+						line = r';' + line
 
 				elif gosub_line:
 					cntstr_g = str(str2var_cnt['gotocnt'])
@@ -427,12 +434,22 @@ def text_cnv():
 
 				elif ( not re.search(r'[0-9A-z-_]', line) ):#英語&記号なし = セリフ
 					pass
+					if debug:
+						line = r';' + line
 
 				else:
 					#print( line.replace('\n', '') )
 					print('WARNING:not defined - ' + re.match(r'(@?[0-9A-z-_]+)',line)[1])
 					line = r';' + line#エラー防止の為コメントアウト
 					pass
+
+				if debug:#選択肢動作確認のため演出系削除
+					c = False
+					for b in [bg_line, sp_line, sp0_line, flash_line, ev1_line, ef2_line, shake_line, bgm1_line, se2_line]:
+						if b:#
+							c = True
+					if c:
+						line = r';' + line
 
 				txt += line
 
@@ -493,10 +510,14 @@ if file_check():
 	cfg_file()
 	text_def()
 	text_cnv()
-	music_cnv()
+	if not debug:
+		music_cnv()
 	end_check()
 
-#print()
-#print(define_dict)
-#print()
-#print(str2var_dict)
+
+
+if debug:
+	print()
+	print(define_dict)
+	print()
+	print(str2var_dict)
