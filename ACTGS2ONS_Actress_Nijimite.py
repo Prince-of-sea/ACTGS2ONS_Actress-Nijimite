@@ -182,7 +182,7 @@ def text_cnv():
 					line = line.replace(r'wait', r'wait_def')
 
 				elif re.match(r'title', line):
-					line = 'reset\n'
+					line = 'click:reset\n'
 
 				elif re.match(r'menu', line):
 					line = r';' + line#エラー防止の為コメントアウト
@@ -401,7 +401,7 @@ def text_cnv():
 					line = 'select_set "' + defsel_line[1] + '"\n'
 
 				elif ev1_line:#もうこれは、おべんとのイベントだ！
-					line = ''
+					line = 'vsp 15,0:vsp 16,0:vsp 17,0:vsp 10,0'
 					if ev1_line[1] == '_fl':
 						line += 'bg black,1:'
 					
@@ -420,7 +420,7 @@ def text_cnv():
 						line = r';' + line#エラー防止の為コメントアウト	
 
 				elif ev_line:		
-					line += 'bg "cg\\' + ev_line[2] + '.png",'
+					line += 'vsp 15,0:vsp 16,0:vsp 17,0:vsp 10,0:bg "cg\\' + ev_line[2] + '.png",'
 					if ev_line[2] == 'FADE_SET':
 						line += '10\n'
 					else:

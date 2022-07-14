@@ -157,11 +157,11 @@ return
 
 *bg_def
 	getparam $0,%0,$1,$2,$3
-	vsp 15,0:vsp 16,0:vsp 17,0
+	vsp 15,0:vsp 16,0:vsp 17,0:vsp 10,0
 	
 	if %0==2 lsp 15,"cg\"+$2+".png",   0,0
 	if %0==3 lsp 16,"cg\"+$2+".png",-180,0
-	if %0==3 lsp 17,"cg\"+$2+".png", 180,0
+	if %0==3 lsp 17,"cg\"+$3+".png", 180,0
 	
 	
 	if $1=="" goto *nobg
