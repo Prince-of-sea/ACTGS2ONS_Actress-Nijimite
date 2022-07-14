@@ -1,4 +1,4 @@
-# ACTGS2ONS_Actress_Nijimite
+# ACTGS2ONS_Actress-Nijimite
 ## なにこれ
   2004年にACTRESS様から発売された、18禁PC向けノベルゲーム'[虹を見つけたら教えて。](https://www.actress.ne.jp/products/nijimite/index.html)'を<br>
   ONScripter形式へ変換するためのコンバータです<br>
