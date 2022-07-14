@@ -182,7 +182,7 @@ def text_cnv():
 					line = line.replace(r'wait', r'wait_def')
 
 				elif re.match(r'title', line):
-					line = 'click:reset\n'
+					line = 'reset\n'
 
 				elif re.match(r'menu', line):
 					line = r';' + line#エラー防止の為コメントアウト
