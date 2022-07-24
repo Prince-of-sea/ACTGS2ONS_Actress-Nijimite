@@ -462,9 +462,6 @@ def text_cnv():
 
 	txt = txt.replace('\n\\', '\\')#￥直前の改行を削除(pretextgosub対策)
 	txt = txt.replace(r';<<-EFFECT->>', add0txt_effect)
-	txt = txt.replace(r'<<-BGMVOL->>', cfg_dict['Bgm'])
-	txt = txt.replace(r'<<-VOICEVOL->>', cfg_dict['Voice'])
-	txt = txt.replace(r'<<-SEVOL->>', cfg_dict['Se'])
 	txt = txt.replace(r'▲氏▲', cfg_dict['Family'])
 	txt = txt.replace(r'●名●', cfg_dict['Name'])
 
@@ -492,9 +489,7 @@ def cfg_file():
 	config.read(ini)
 	cfg_dict['Name'] = config['User']['Name']
 	cfg_dict['Family'] = config['User']['Family']
-	cfg_dict['Bgm'] = config['Volume']['Bgm']		
-	cfg_dict['Se'] = config['Volume']['Se']
-	cfg_dict['Voice'] = config['Volume']['Voice']
+
 
 def end_check():
 	# ここtrueになったらACTGS→NSCの変数名変換限界です
@@ -506,6 +501,7 @@ def end_check():
 	if (gosub_list):
 		print('WARNING:gosub convert error!')
 
+
 if file_check():
 	cfg_file()
 	text_def()
@@ -513,11 +509,3 @@ if file_check():
 	if not debug:
 		music_cnv()
 	end_check()
-
-
-
-if debug:
-	print()
-	print(define_dict)
-	print()
-	print(str2var_dict)
