@@ -1,5 +1,6 @@
 import configparser
 import soundfile
+import shutil
 import glob
 import sys
 import re
@@ -430,7 +431,7 @@ def text_cnv():
 					line = 'bgm "wav_dec\\' + bgm1_line[1] + '.wav"\n'
 
 				elif se2_line:
-					line = 'dwave 2,"wav_dec\\' + se2_line[1].replace(r'"', r'') + '.wav"\n'
+					line = 'dwave 1,"wav_dec\\' + se2_line[1].replace(r'"', r'') + '.wav"\n'
 
 				elif ( not re.search(r'[0-9A-z-_]', line) ):#英語&記号なし = セリフ
 					pass
@@ -489,17 +490,29 @@ def cfg_file():
 	config.read(ini)
 	cfg_dict['Name'] = config['User']['Name']
 	cfg_dict['Family'] = config['User']['Family']
+	os.remove(ini)
 
 
 def end_check():
 	# ここtrueになったらACTGS→NSCの変数名変換限界です
 	# (NSC側のグローバル変数ずらせばいいだけなんだけどね...)
+	c = True
 	if (str2var_cnt['numalias'] >= 200):
 		print('WARNING:global var convert error!')
+		c = False
 
 	# gosubがうまく対になってないときエラー
 	if (gosub_list):
 		print('WARNING:gosub convert error!')
+		c = False
+
+	return c
+
+
+def junk_del():
+	shutil.rmtree(os.path.join(same_hierarchy, 'wav'))
+	shutil.rmtree(os.path.join(same_hierarchy, 'scr'))
+	os.remove(DEFAULT_TXT)
 
 
 if file_check():
@@ -508,4 +521,5 @@ if file_check():
 	text_cnv()
 	if not debug:
 		music_cnv()
-	end_check()
+	if end_check():
+		junk_del()
