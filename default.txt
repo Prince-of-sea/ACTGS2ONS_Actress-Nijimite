@@ -68,7 +68,7 @@ return
 
 *vo
 	getparam $0
-	if $0=="" dwavestop 1
+	if $0=="" dwavestop 0
 	if $0!="" dwave 0,"wav_dec\" + $0 + ".wav"
 	mov $10,""
 return
