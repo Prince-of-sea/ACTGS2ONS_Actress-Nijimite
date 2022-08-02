@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import configparser
 import soundfile
 import shutil
@@ -222,7 +223,7 @@ def text_cnv():
 					line = r';' + line#エラー防止の為コメントアウト
 
 				elif re.match(r'blue_sky', line):#
-					line = r'mov %1000,1\n'#クリアフラグらしきもの
+					line = 'mov %1000,1\n'#クリアフラグらしきもの
 
 				elif msg2_line:
 					line = 'msg2 "' + msg2_line[1].replace(r'【', r'').replace(r'】', r'') + '"\n'
@@ -377,7 +378,8 @@ def text_cnv():
 
 						line = 'mov ' + mov_line_1_r + ',' + mov_line_3_r + mov_line_5_r + mov_line_6_r + '\n'
 					else:
-						print('WARNING:mov set error!')
+						if debug:
+							print('WARNING:mov set error!')
 						line = r';' + line#エラー防止の為コメントアウト
 
 				elif movie_line:
@@ -401,7 +403,7 @@ def text_cnv():
 				elif defsel_line:
 					line = 'select_set "' + defsel_line[1] + '"\n'
 
-				elif ev1_line:#もうこれは、おべんとのイベントだ！
+				elif ev1_line:
 					line = 'vsp 15,0:vsp 16,0:vsp 17,0:vsp 10,0'
 					if ev1_line[1] == '_fl':
 						line += 'bg black,1:'
@@ -434,13 +436,14 @@ def text_cnv():
 					line = 'dwave 1,"wav_dec\\' + se2_line[1].replace(r'"', r'') + '.wav"\n'
 
 				elif ( not re.search(r'[0-9A-z-_]', line) ):#英語&記号なし = セリフ
-					pass
+					line = line.replace(r'!', r'！').replace(r'?', r'？').replace(r'･', r'・')
 					if debug:
 						line = r';' + line
 
 				else:
 					#print( line.replace('\n', '') )
-					print('WARNING:not defined - ' + re.match(r'(@?[0-9A-z-_]+)',line)[1])
+					if debug:
+						print('WARNING:not defined - ' + re.match(r'(@?[0-9A-z-_]+)',line)[1])
 					line = r';' + line#エラー防止の為コメントアウト
 					pass
 
